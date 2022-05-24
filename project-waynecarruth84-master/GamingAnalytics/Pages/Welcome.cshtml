@@ -1,0 +1,31 @@
+﻿@page
+@model GamingAnalytics.Pages.WelcomeModel
+@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+</head>
+<body>
+
+    <h1>Welcome @Model.Username</h1>
+    <p>Please continue onto the data page or dashboard page</p>
+    <a asp-page="Welcome" asp-page-handler="Logout">Logout</a>
+    <button id="google-signout">Sign out</button>
+
+</body>
+</html>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+    document.getElementById("google-signout").onclick = function signOut() {
+        mGoogleSignInClient.signOut();
+        mGoogleSignInClient.revokeAccess();
+        console.log("this is a test");
+        location.href = "https://localhost:5001/";
+    }
+</script>

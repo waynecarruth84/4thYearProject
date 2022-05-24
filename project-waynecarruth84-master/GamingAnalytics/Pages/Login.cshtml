@@ -1,0 +1,71 @@
+﻿@page
+@model GamingAnalytics.Pages.LoginModel
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="google-signin-client_id" content="101760703974-cdgb2ppvkf3eo9qdi6piu4jhjc7d6coc.apps.googleusercontent.com">
+    <title>Index</title>
+</head>
+<body>
+
+    <h3>Login Form</h3>
+    <form method="post">
+        <table>
+            <tr>
+                <td>Fullname</td>
+                <td><input type="text" asp-for="@Model.FullName" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" asp-for="@Model.Email" /></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" asp-for="@Model.Password" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+        </table>
+
+    </form>
+</body>
+
+</html>
+
+
+
+@section Scripts{
+    @{
+        if (TempData["msg"] != null)
+        {
+            <script>
+            consol.log('@TempData["msg"]')
+            </script>
+        }
+    }
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="text/javascript">
+        function onSignIn(googleUser) {
+
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            window.onbeforeunload = function (e) {
+                gapi.auth2.getAuthInstance().signOut();
+            };
+
+            window.location.href = "https://localhost:5001/Welcome";
+        }
+    </script>
+}

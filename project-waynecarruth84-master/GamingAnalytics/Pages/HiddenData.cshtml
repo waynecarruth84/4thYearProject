@@ -1,0 +1,73 @@
+﻿@page
+@model GamingAnalytics.Pages.HiddenDataModel
+@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>This is the Profile detail page</title>
+    <script type="text/javascript">
+        function hideShow() {
+            var x = document.getElementById("hiddenData");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <i class="fab fa-sistrix"></i>
+    <form method="post" asp-page="./HiddenData">
+        <input type="text" id="Summonername" asp-for="@Model.summonerName" placeholder="Search..">
+    </form>
+
+</body>
+<div id="riotUsers">
+    <h1>This is the data For @Model.UserNameDetails()</h1>
+    <h3>This is some basic data for us to search such as the name and level of the player, with some hidden data that may or maynot be useful for your typical user.</h3>
+
+
+    <p>
+        <i class="fas fa-user-alt"></i>  Users Riot Name is : @Model.UserNameDetails()
+    </p>
+    <p>
+        <i class="fa fa-level-up"></i> Users Riot Level is : @Model.UserLvlDetails()
+    </p>
+    <button onclick="hideShow()">Extra Data</button>
+
+    <div id="hiddenData" style="display: none">
+
+        <p>
+            <i class="fas fa-id-card"></i>  Users Riot Id is : @Model.UserIdDetails()
+        </p>
+
+        <p>
+            <i class="fas fa-id-card"></i>  Users Riot PU Id is : @Model.UserPUIdDetails()
+        </p>
+
+        <p>
+            <i class="fas fa-id-card"></i>  Users account id is : @Model.UserAccountIdDetails()
+        </p>
+
+        <p>
+            <i class="fas fa-id-card"></i>  Users Riot Profile Icon Id is : @Model.UserProfileIconIdDetails()
+        </p>
+
+        <p>
+            <i class="fas fa-calendar-alt"></i> Users Riot Revision is : @Model.UserRevisionDetails()
+        </p>
+
+    </div>
+    <p></p>
+    <form method="get">
+        <button type="submit" asp-page="./Dashboard">Dashboard for @Model.UserNameDetails()</button>
+    </form>
+
+
+</div>
+</html> 

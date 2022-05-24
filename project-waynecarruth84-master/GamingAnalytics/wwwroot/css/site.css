@@ -1,0 +1,156 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.navbar {
+    background-color: black;
+}
+/* Paragraph side by sides
+-------------------------------------------------- */
+#gallery-text-left {
+    width: 50%
+}
+
+#gallery-paragraph-1 {
+    border-left: 8px solid #3CB371;
+    border-radius: 4px;
+    padding-left: 15px;
+    word-wrap: break-word;
+}
+
+#gallery-paragraph-2 {
+    border-left: 8px solid #3CB371;
+    border-radius: 4px;
+    padding-left: 15px;
+}
+
+#gallery-text-right {
+    width: 50%;
+}
+
+#riot-data {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+}
+/* this is the text colors
+-------------------------------------------------- */
+h1 {
+    color: white;
+}
+h4 {
+    color:white;
+}
+p {
+    color: white;
+}
+
+ul {
+    color: #FFEAE6;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: white;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+header {
+    background-color: black;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: black;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+/* PLayer Cards*/
+.stat-card {
+    background-color: rgba(37, 37, 37, 0.25);
+    border: 2px solid #252525;
+    z-index: 10;
+    border-radius: 4px;
+    margin-right: 1%;
+    margin-bottom: 20px;
+    padding: 15px 0;
+    max-width: 350px;
+    width: 32.33%;
+    overflow: hidden;
+}
+
+.player-Chart {
+    background-color: black;
+    width: 350px;
+    height: 500px;
+}
+
+.stats-modal-container .career-data-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.additional-stat {
+    padding: 10px;
+    border-bottom: 2px solid #252525;
+    border-right: 2px solid #252525;
+    border-left: 2px solid #252525;
+}
+
+.LastGame {
+    border-top: 2px solid #252525;
+}

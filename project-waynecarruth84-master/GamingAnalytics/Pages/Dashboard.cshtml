@@ -1,0 +1,178 @@
+﻿@page
+@model GamingAnalytics.Pages.DashboardModel
+@{
+}
+<head>
+    
+    <h6>
+        (Please be awear some data may be wrong based on all champ selections in the game, it may mess with the position tab,
+        this error can arise if multiple mid,multiple adc, multiple support,multiple top and multiple jungle only champs are selected in non typical roles.
+        the error is on the API end not understanding correctly.)
+    </h6>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(PositionChart);
+
+        google.charts.setOnLoadCallback(damageAndHealing);
+
+        google.charts.setOnLoadCallback(avgKDA);
+
+        google.charts.setOnLoadCallback(DamageChart);
+
+        function PositionChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Damage', 'Taken'],
+                ['Physical', @Model.getUserPhysicalDamageTaken()],
+                ['Magical', @Model.getUserMagicDamageTaken()],
+                ['True', @Model.getUserTrueDamageTaken()],
+                
+            ]);
+
+            var options = {
+                title: 'All Damage Taken in previous game',
+                titleTextStyle: {color: 'white',},
+                legend: { textStyle: { color: 'white' } },
+                backgroundColor: { fill: 'transparent' }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+            chart.draw(data, options);
+        }
+
+        function DamageChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Lane', 'Percentage'],
+                ['Magic Damage', @Model.getUserMagicDamage()],
+                ['Physical Damage', @Model.getUserPhysicalDamage()],
+                ['True Damage', @Model.getUserTrueDamage()],
+            ]);
+
+            var options = {
+                title: 'All Damage Dealt in previous game',
+                titleTextStyle: { color: 'white', },
+                legend: { textStyle: { color: 'white' } },
+                backgroundColor: { fill: 'transparent' }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donut_damage'));
+            chart.draw(data, options);
+        }
+
+        function damageAndHealing() {
+            var data = google.visualization.arrayToDataTable([
+                ["Element", "Result", { role: "style" }],
+                ["Total Damage Taken", @Model.getUserTotalDamageTaken(), "#FF0000"],
+                ["Total Healing Done", @Model.getUserTotalHealing(), "#008000"],
+                ["Total Damage Dealt", @Model.getUserTotalDamageDealt(), "#0000FF"]
+            ]);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+            
+            var options = {
+                title: "Damage and Heling total",
+                titleTextStyle: { color: 'white', },
+                
+                backgroundColor: { fill: 'transparent' },
+                legend: { position: 'top',},
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("bar_chart"));
+            chart.draw(view, options);
+        }
+
+        function avgKDA() {
+            var data = google.visualization.arrayToDataTable([
+                ['KDA', 'Values'],
+                ['Kills', @Model.lastGameKills()],
+                ['Death', @Model.lastGameDeaths()],
+                ['Assists', @Model.lastGameAssists()],
+            ]);
+
+            var options = {
+                title: 'KDA over Last Game',
+                pieHole: 0.5,
+                pieSliceTextStyle: {
+                    color: 'black',
+                },
+                titleTextStyle: { color: 'white', },
+                backgroundColor: { fill: 'transparent' },
+                legend: { textStyle: { color: 'white' } },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div class="stats-modal-container">
+        <div class="career-data-container">
+            <div class="stat-card"><h2>Damage types taken</h2><div id="donut_single" class="player-Chart"></div></div>
+            <div class="stat-card"><h2>Healing, Damage taken/dealt</h2><div id="bar_chart" class="player-Chart"></div></div>
+            <div class="stat-card"><h2>KDA</h2><div id="piechart" class="player-Chart"></div></div>
+
+        </div>
+
+        <div class="career-data-container">
+            <div class="stat-card">
+                <h2>Damage stats</h2>
+                <div id="donut_damage" class="player-Chart"></div>
+            </div>
+                <div class="stat-card" id="mathcHistory">
+                    <p><i class="far fa-id-badge"></i>The Total Games Sneakyfox9 has played is : @Model.matchHistoryTotalGames()</p>
+                    <p><i class="fas fa-globe-europe"></i>This is the matches Positions/Regions :<br /> @Model.matchHistoryPosition()</p>
+                    <p><i class="fas fa-qrcode"></i>This is the matches game id :<br /> @Model.matchHistoryGameid()</p>
+                    <p><i class="fas fa-user-secret"></i>This is the users Champ id :<br /> @Model.matchHistoryChamp()</p>
+                    <p><i class="fas fa-list-ul"></i>This is the matche Queue :<br /> @Model.matchHistoryQueue()</p>
+                    <p><i class="fas fa-list-ol"></i>This is the current Season :<br /> @Model.matchHistorySeason()</p>
+                    <p><i class="fas fa-clock"></i>These are the matches Timestamp :<br /> @Model.matchHistoryTimestamp()</p>
+
+                    <p><i class="fas fa-map-marked-alt"></i>These are the matches Lane :<br /> @Model.matchHistoryLane()</p>
+                </div>
+                <div class="stat-card">
+                    <p>Last Game By @Model.matchHistory()</p>
+                    <p class="additional-stat">
+                        <i class="fas fa-crown"></i>  Win/Loss: <span> </span>@Model.lastGameWinLoss()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-passport"></i>  Position: <span></span>@Model.lastGameposition()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-male"></i>  Champion: <span></span> @Model.lastGameChampion()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-crosshairs"></i>  Kills: <span></span>@Model.lastGameKills()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-skull"></i> Deaths: <span></span> @Model.lastGameDeaths()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-hands-helping"></i>   Assists: <span></span>@Model.lastGameAssists()
+                    </p>
+                    <p class="additional-stat">
+                        <i class="fas fa-suitcase"></i>  Items: <span></span>@Model.getLastGameItems0(), @Model.getLastGameItems1(), @Model.getLastGameItems2(), @Model.getLastGameItems3(), @Model.getLastGameItems4(), @Model.getLastGameItems5()
+                    </p>
+                    <p>
+                    KDA ratio: (Kills + Assists) / Death = @Model.kdaRatio()
+                    </p>
+                </div>
+
+        </div>
+    </div>
+        
+
+</body>
